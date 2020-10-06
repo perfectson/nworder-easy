@@ -19,7 +19,16 @@ empty_cols = [col for col in df3.columns if df3.iloc[[0]][col].isnull().any()]
 df3.drop(empty_cols,
         axis=1,
         inplace=True)
-print(df3)
+print(df3["Sizes"])
+
+for i in range(len(df3)) : 
+    parsed_sizes = df3.iloc[i]["Sizes"].split(',')
+    for size in parsed_sizes: 
+        size_column = 'Size ' + str(parsed_sizes.index(size)+1) 
+        if size_column not in df3:
+            df3[size_column] = size
+
+
 
 df3.to_csv('out.csv',index=False)
 df3.to_excel("output.xlsx")
